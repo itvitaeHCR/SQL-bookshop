@@ -13,7 +13,7 @@ CREATE TABLE Winkel (
 	adres   	VARCHAR(255) 	NOT NULL,
 	plaats  	VARCHAR(255) 	NOT NULL,
 	telnr		INTEGER 		NOT NULL,
-	Primary Key	(filiaalnr)
+	PRIMARY KEY	(filiaalnr)
 );
 
 CREATE TABLE Auteur (
@@ -38,9 +38,9 @@ CREATE TABLE Boek (
 	titel		VARCHAR(255)	NOT NULL,
 	uitgavejaar	INTEGER 		NOT NULL,
 	prijs		INTEGER 		NOT NULL,
-	PRIMARY KEY	(ISBN),
-	FOREIGN KEY	(AuteurId) 		REFERENCES Auteur(id),
-	FOREIGN KEY	(UitgeverId) 	REFERENCES Uitgever(id)
+	auteurId	INTEGER 		NOT NULL UNIQUE,
+	uitgeverId	INTEGER			NOT NULL UNIQUE,
+	PRIMARY KEY	(ISBN)
 );
 
 CREATE TABLE Account (
@@ -55,24 +55,38 @@ CREATE TABLE Account (
 CREATE TABLE Voorraad (
 	id  		INTEGER 		NOT NULL UNIQUE,
 	aantal		INTEGER 		NOT NULL,
-	PRIMARY KEY	(id),
-	FOREIGN KEY	(WinkelFilnr)	REFERENCES	Winkel(filiaalnr),
-	FOREIGN KEY	(BoekISBN)		REFERENCES	Boek(ISBN)
+	winkelFilnr	INTEGER 		NOT NULL UNIQUE,
+	boekISBN	INTEGER 		NOT NULL UNIQUE,
+	PRIMARY KEY	(id)
 );
 
 CREATE TABLE Cart (
 	bestelnr	INTEGER 		NOT NULL UNIQUE,
-	PRIMARY KEY	(bestelnr),
-	FOREIGN KEY	(AccountEmail) 	REFERENCES Account(email)
+	accountEmail VARCHAR(255) 	NOT NULL UNIQUE,
+	PRIMARY KEY	(bestelnr)
 );
 
 CREATE TABLE Item (
 	id 			INTEGER			NOT NULL UNIQUE,
 	aantal      INTEGER			NOT NULL,
-	PRIMARY KEY	(id),
-	FOREIGN KEY	(BoekISBN)		REFERENCES	Boek(ISBN),
-	FOREIGN KEY	(CartBestelnr)	REFERENCES Cart(bestelnr)
+	boekISBN	INTEGER 		NOT NULL UNIQUE,
+	cartBestelnr INTEGER 		NOT NULL UNIQUE,
+	PRIMARY KEY	(id)
 );
+
+
+ALTER TABLE Boek 		ADD CONSTRAINT FK_AuteurId 		FOREIGN KEY (auteurId) 		REFERENCES Auteur(id);
+ALTER TABLE Boek 		ADD CONSTRAINT FK_UitgeverId 	FOREIGN KEY (uitgeverId) 	REFERENCES Uitgever(id);
+
+ALTER TABLE Voorraad	ADD CONSTRAINT FK_WinkelFilnr	FOREIGN KEY (winkelFilnr)	REFERENCES Winkel(filiaalnr);
+ALTER TABLE Voorraad	ADD CONSTRAINT FK_BoekISBN		FOREIGN KEY (boekISBN)		REFERENCES Boek(ISBN);
+
+ALTER TABLE Cart		ADD CONSTRAINT FK_AccountEmail	FOREIGN KEY (accountEmail)	REFERENCES Account(email);
+
+ALTER TABLE Item		ADD CONSTRAINT FK_BoekISBN_Item FOREIGN KEY	(boekISBN)		REFERENCES Boek(ISBN);
+ALTER TABLE Item		ADD CONSTRAINT FK_CartBestelnr	FOREIGN KEY (cartBestelnr)	REFERENCES Cart(bestelnr);
+
+
 
 INSERT INTO Winkel		VALUES	(1, 'Rokin 9',			'Amsterdam',	0205231481	);
 INSERT INTO Winkel		VALUES	(2, 'Oudegracht 112-b',	'Utrecht',		0302335200	);
