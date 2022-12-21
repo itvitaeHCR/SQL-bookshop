@@ -38,8 +38,8 @@ CREATE TABLE Boek (
 	titel		VARCHAR(255)	NOT NULL,
 	uitgavejaar	INTEGER 		NOT NULL,
 	prijs		INTEGER 		NOT NULL,
-	auteurId	INTEGER 		NOT NULL UNIQUE,
-	uitgeverId	INTEGER			NOT NULL UNIQUE,
+	auteurId	INTEGER,
+	uitgeverId	INTEGER,
 	PRIMARY KEY	(ISBN)
 );
 
@@ -55,22 +55,22 @@ CREATE TABLE Account (
 CREATE TABLE Voorraad (
 	id  		INTEGER 		NOT NULL UNIQUE,
 	aantal		INTEGER 		NOT NULL,
-	winkelFilnr	INTEGER 		NOT NULL UNIQUE,
-	boekISBN	INTEGER 		NOT NULL UNIQUE,
+	winkelFilnr	INTEGER,
+	boekISBN	INTEGER,
 	PRIMARY KEY	(id)
 );
 
 CREATE TABLE Cart (
 	bestelnr	INTEGER 		NOT NULL UNIQUE,
-	accountEmail VARCHAR(255) 	NOT NULL UNIQUE,
+	accountEmail VARCHAR(255),
 	PRIMARY KEY	(bestelnr)
 );
 
 CREATE TABLE Item (
 	id 			INTEGER			NOT NULL UNIQUE,
 	aantal      INTEGER			NOT NULL,
-	boekISBN	INTEGER 		NOT NULL UNIQUE,
-	cartBestelnr INTEGER 		NOT NULL UNIQUE,
+	boekISBN	INTEGER,
+	cartBestelnr INTEGER,
 	PRIMARY KEY	(id)
 );
 
@@ -87,12 +87,36 @@ ALTER TABLE Item		ADD CONSTRAINT FK_BoekISBN_Item FOREIGN KEY	(boekISBN)		REFERE
 ALTER TABLE Item		ADD CONSTRAINT FK_CartBestelnr	FOREIGN KEY (cartBestelnr)	REFERENCES Cart(bestelnr);
 
 
-
 INSERT INTO Winkel		VALUES	(1, 'Rokin 9',			'Amsterdam',	0205231481	);
 INSERT INTO Winkel		VALUES	(2, 'Oudegracht 112-b',	'Utrecht',		0302335200	);
 INSERT INTO Winkel		VALUES	(3, 'Coolsingel 129',	'Den Haag',		0104132070	);
 INSERT INTO Winkel		VALUES	(4, 'Kerkstraat 27',	'Den Bosch',	0733020100	);
 
-INSERT INTO Accout		VALUES	('a_devries@adelaarsnest.nl',	'Arend de Vries',	'Adelaarsnest 12',	'Haarlem',	0612345678	);
-INSERT INTO Accout		VALUES	('bboer@boeren.nl,',			'Bert Boer',		'Mesthoop 1',		'Dorp',		0623456789	);
-INSERT INTO Accout		VALUES	(email,naam,adres,plaats,telnr);
+INSERT INTO Account		VALUES	('a_devries@adelaarsnest.nl',	'Arend de Vries',	'Adelaarsnest 12',	'Haarlem',	0612345678	);
+INSERT INTO Account		VALUES	('bboer@boeren.nl,',			'Bert Boer',		'Mesthoop 1',		'Dorp',		0623456789	);
+INSERT INTO Account		VALUES	('c_kordaat@gmail.com',			'Cornelis Kordaat',	'Kerkstraat 11', 	'Utrecht', 	0634567890 	);
+
+INSERT INTO Auteur		VALUES	(10,	'Auteur 1',	'auteur1.wikipedia.com');
+INSERT INTO Auteur		VALUES	(20,	'Auteur 2',	'auteur2.wikipedia.com');
+INSERT INTO Auteur		VALUES	(30,	'Auteur 3',	'auteur3.wikipedia.com');
+INSERT INTO Auteur		VALUES	(40,	'Auteur 4',	'auteur4.wikipedia.com');
+INSERT INTO Auteur		VALUES	(50,	'Auteur 5',	'auteur5.wikipedia.com');
+INSERT INTO Auteur		VALUES	(60,	'Auteur 6',	'auteur6.wikipedia.com');
+
+INSERT INTO Uitgever	VALUES	(200,	'Uitgever 1',	'straatweg 1',	'Vlissingen',	0118886886,	'uitgeverij1.wikipedia.nl');
+INSERT INTO Uitgever	VALUES	(220,	'Uitgever 2',	'straatweg 2',	'Vlissingen',	0118886887,	'uitgeverij2.wikipedia.nl');
+INSERT INTO Uitgever	VALUES	(240,	'Uitgever 3',	'straatweg 3',	'Vlissingen',	0118886888,	'uitgeverij3.wikipedia.nl');
+INSERT INTO Uitgever	VALUES	(260,	'Uitgever 4',	'straatweg 4',	'Vlissingen',	0118886889,	'uitgeverij4.wikipedia.nl');
+INSERT INTO Uitgever	VALUES	(280,	'Uitgever 5',	'straatweg 5',	'Vlissingen',	0118886880,	'uitgeverij5.wikipedia.nl');
+
+INSERT INTO Boek		VALUES	(0001,	'Titel 1',	2000, 	12,	10,		220);
+INSERT INTO Boek		VALUES	(0002,	'Titel 2',	2010, 	10,	20,		220);
+INSERT INTO Boek		VALUES	(0003,	'Titel 3',	2013, 	15,	30,		240);
+INSERT INTO Boek		VALUES	(0004,	'Titel 4',	2001, 	20,	40,		240);
+INSERT INTO Boek		VALUES	(0005,	'Titel 5',	1967, 	63,	50,		260);
+INSERT INTO Boek		VALUES	(0006,	'Titel 6',	2017, 	6,	60,		260);
+INSERT INTO Boek		VALUES	(0007,	'Titel 7',	1958, 	19,	10,		280);
+INSERT INTO Boek		VALUES	(0008,	'Titel 8',	2003, 	36,	20,		280);
+INSERT INTO Boek		VALUES	(0009,	'Titel 9',	1949, 	9,	30,		200);
+INSERT INTO Boek		VALUES	(0010,	'Titel 10',	2020, 	44,	50,		200);
+
