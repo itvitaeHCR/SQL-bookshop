@@ -93,7 +93,7 @@ INSERT INTO Winkel		VALUES	(3, 'Coolsingel 129',	'Den Haag',		0104132070	);
 INSERT INTO Winkel		VALUES	(4, 'Kerkstraat 27',	'Den Bosch',	0733020100	);
 
 INSERT INTO Account		VALUES	('a_devries@adelaarsnest.nl',	'Arend de Vries',	'Adelaarsnest 12',	'Haarlem',	0612345678	);
-INSERT INTO Account		VALUES	('bboer@boeren.nl,',			'Bert Boer',		'Mesthoop 1',		'Dorp',		0623456789	);
+INSERT INTO Account		VALUES	('bboer@boeren.nl',				'Bert Boer',		'Mesthoop 1',		'Dorp',		0623456789	);
 INSERT INTO Account		VALUES	('c_kordaat@gmail.com',			'Cornelis Kordaat',	'Kerkstraat 11', 	'Utrecht', 	0634567890 	);
 
 INSERT INTO Auteur		VALUES	(10,	'Auteur 1',	'auteur1.wikipedia.com');
@@ -170,7 +170,16 @@ INSERT INTO Voorraad	VALUES	(20010,	65,	2, 0010);
 INSERT INTO Voorraad	VALUES	(30010,	65,	3, 0010);
 INSERT INTO Voorraad	VALUES	(40010,	65,	4, 0010);
 
-	id  		INTEGER 		NOT NULL UNIQUE,
-	aantal		INTEGER 		NOT NULL,
-	winkelFilnr	INTEGER,
-	boekISBN	INTEGER,
+INSERT INTO Cart		VALUES	(999, 'a_devries@adelaarsnest.nl'	);
+INSERT INTO Cart		VALUES	(998, 'bboer@boeren.nl'				);
+INSERT INTO Cart		VALUES	(997, 'c_kordaat@gmail.com'			);
+INSERT INTO Cart		VALUES	(996, 'a_devries@adelaarsnest.nl'	);
+
+INSERT INTO Item		VALUES	(9991,	1,	0001,	999);
+INSERT INTO Item		VALUES	(9992,	1,	0002,	999);
+
+INSERT INTO Item		VALUES	(9981,	4,	0003,	998);
+
+INSERT INTO Item		VALUES	(9971,	3,	0001,	997);
+
+INSERT INTO Item		VALUES	(9961,	1,	0003,	996);
